@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pdfplumber
+sentence-transformers
+psycopg2-binary
+pgvector
+groq
+python-multipart
