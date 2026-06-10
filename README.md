@@ -36,7 +36,7 @@ The system uses a three-stage pipeline:
 
 ```bash
 git clone https://github.com/Shubhi-Agarwal0612/RAG-pipeline.git
-cd DocChat
+cd RAG-pipeline
 python -m venv venv
 source venv/bin/activate        # Linux/Mac
 # venv\Scripts\activate          # Windows
@@ -131,14 +131,14 @@ FastAPI auto-generates interactive API docs at [http://localhost:8000/docs](http
 ## Project Structure
 
 ```
-DocChat/
+RAG-pipeline/
 ├── main.py                 # FastAPI app, core functions, endpoints
 ├── requirements.txt        # Python dependencies
 ├── .env.example            # API key template
 ├── static/
 │   └── index.html          # Frontend (single-page app)
 ├── docs/
-│   └── DocChat_Technical_Design.docx   # Full technical design document
+│   └── RAG Pipeline System Design.pdf   # Full technical design document
 └── uploads/                # Stored PDF files (gitignored)
 ```
 
