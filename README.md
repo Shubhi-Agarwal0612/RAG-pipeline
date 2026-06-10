@@ -1,4 +1,4 @@
-# DocChat — PDF Research Assistant
+# # RAG Pipeline System
 
 A Retrieval-Augmented Generation (RAG) application that lets users upload PDF documents, create vector embeddings, and ask questions through a chat interface powered by an LLM. The system retrieves relevant context from uploaded documents using semantic search and generates grounded, cited answers.
 
@@ -35,7 +35,7 @@ The system uses a three-stage pipeline:
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DocChat.git
+git clone https://github.com/Shubhi-Agarwal0612/RAG-pipeline.git
 cd DocChat
 python -m venv venv
 source venv/bin/activate        # Linux/Mac
