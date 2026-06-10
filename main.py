@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from sklearn.feature_extraction.text import TfidfVectorizer
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -52,6 +53,20 @@ def process_document(file_path):
             final_list.append({"page_no": page_no + 1, "text": chunk})
 
     pdf.close()
+
+    # Extract keywords using TF-IDF across all chunks
+    if final_list:
+        texts = [chunk["text"] for chunk in final_list]
+        vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
+        tfidf_matrix = vectorizer.fit_transform(texts)
+        feature_names = vectorizer.get_feature_names_out()
+
+        for i, chunk in enumerate(final_list):
+            scores = tfidf_matrix[i].toarray()[0]
+            top_indices = scores.argsort()[-6:]
+            keywords = [feature_names[idx] for idx in top_indices if scores[idx] > 0]
+            chunk["text"] = chunk["text"] + " | Keywords: " + ", ".join(keywords)
+
     return final_list
 
 
