@@ -6,3 +6,4 @@ psycopg2-binary
 pgvector
 groq
 python-multipart
+scikit-learn

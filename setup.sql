@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS vector_embeddings (
     id SERIAL PRIMARY KEY,
     document_id INTEGER REFERENCES documents(document_id),
-    page_no INTEGER,
+    chunk_id VARCHAR(50),
     text TEXT NOT NULL,
+    metadata JSONB,
     vector vector(384)
 );

@@ -11,6 +11,9 @@ import pdfplumber
 import psycopg2
 import os
 import shutil
+import re
+from collections import Counter
+import json
 
 app = FastAPI()
 
@@ -39,22 +42,58 @@ def get_db():
 
 
 # FUNCTION 1: Process Document
+
+
+
 def process_document(file_path):
     pdf = pdfplumber.open(file_path)
-    final_list = []
 
+    # PHASE 1: Extract raw text from every page (keep \n intact)
+    raw_pages = []
     for page_no, page in enumerate(pdf.pages):
         text = page.extract_text()
         if not text:
             continue
-        text = ' '.join(text.split())
-        for i in range(0, len(text), 400):
-            chunk = text[i : i + 500]
-            final_list.append({"page_no": page_no + 1, "text": chunk})
-
+        raw_pages.append({"page_no": page_no + 1, "text": text})
     pdf.close()
 
-    # Extract keywords using TF-IDF across all chunks
+    # PHASE 2: Detect and remove headers, footers, page numbers
+    all_lines = []
+    for page in raw_pages:
+        lines = page["text"].split('\n')
+        all_lines.extend(set(lines))
+
+    line_counts = Counter(all_lines)
+    threshold = len(raw_pages) * 0.5
+    headers_footers = {
+        line for line, count in line_counts.items()
+        if count > threshold and len(line.strip()) > 0
+    }
+
+    for page in raw_pages:
+        lines = page["text"].split('\n')
+        cleaned_lines = [line for line in lines if line not in headers_footers]
+        cleaned_text = '\n'.join(cleaned_lines)
+        cleaned_text = re.sub(r'Page\s*\d+(\s*(of|/)\s*\d+)?', '', cleaned_text)
+        page["text"] = cleaned_text
+
+    # PHASE 3: Clean whitespace and chunk with overlap
+    final_list = []
+    for page in raw_pages:
+        text = ' '.join(page["text"].split())
+        if not text.strip():
+            continue
+        chunk_index = 0
+        for i in range(0, len(text), 400):
+            chunk = text[i : i + 500]
+            final_list.append({
+                "page_no": page["page_no"],
+                "chunk_index": chunk_index,
+                "text": chunk
+            })
+            chunk_index += 1
+
+    # PHASE 4: TF-IDF keyword extraction
     if final_list:
         texts = [chunk["text"] for chunk in final_list]
         vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
@@ -65,23 +104,27 @@ def process_document(file_path):
             scores = tfidf_matrix[i].toarray()[0]
             top_indices = scores.argsort()[-6:]
             keywords = [feature_names[idx] for idx in top_indices if scores[idx] > 0]
-            chunk["text"] = chunk["text"] + " | Keywords: " + ", ".join(keywords)
+            chunk["keywords"] = keywords
 
     return final_list
 
 
 # FUNCTION 2: Embed and Store
-def embed_and_store(document_id, chunks):
+def embed_and_store(document_id, final_list):
     conn = get_db()
     cur = conn.cursor()
-
-    for chunk in chunks:
-        vector = model.encode(chunk["text"]).tolist()
+    for chunk in final_list:
+        vector = model.encode(chunk["text"] + " " + ", ".join(chunk["keywords"])).tolist()
+        chunk_id = f"doc{document_id}_p{chunk['page_no']}_c{chunk['chunk_index']}"
+        metadata = json.dumps({
+            "page_no": chunk["page_no"],
+            "chunk_index": chunk["chunk_index"],
+            "keywords": chunk["keywords"]
+        })
         cur.execute(
-            "INSERT INTO vector_embeddings (document_id, page_no, text, vector) VALUES (%s, %s, %s, %s)",
-            (document_id, chunk["page_no"], chunk["text"], vector),
+            "INSERT INTO vector_embeddings (document_id, chunk_id, text, metadata, vector) VALUES (%s, %s, %s, %s, %s)",
+            (document_id, chunk_id, chunk["text"], metadata, vector),
         )
-
     conn.commit()
     cur.close()
     conn.close()
@@ -94,7 +137,7 @@ def query(question, document_ids):
     conn = get_db()
     cur = conn.cursor()
     cur.execute(
-        """SELECT text, page_no, document_id, 1 - (vector <=> %s::vector) as similarity
+        """SELECT text, chunk_id, document_id, 1 - (vector <=> %s::vector) as similarity
            FROM vector_embeddings
            WHERE document_id = ANY(%s)
            ORDER BY similarity DESC
@@ -110,7 +153,7 @@ def query(question, document_ids):
 
     chunks_string = ""
     for i, row in enumerate(relevant_chunks):
-        chunks_string += f"Source {i + 1} (Page {row[1]}): {row[0]}\n\n"
+        chunks_string += f"Source {i + 1} [{row[1]}]: {row[0]}\n\n"
 
     system_prompt = """You are an exceptional research assistant who answers questions from provided documents.
 Only answer from the provided context, do not add any extra information from training knowledge.

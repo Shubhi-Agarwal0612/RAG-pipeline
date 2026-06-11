@@ -13,6 +13,14 @@ The system uses a three-stage pipeline:
 - **Storage:** Document metadata in PostgreSQL, vector embeddings in pgvector
 - **Retrieval & Generation:** Cosine similarity search → context assembly → LLM answer generation with source attribution
 
+## Optimization & Improvements (v2)
+
+- **Text Preprocessing:** Headers, footers, and page numbers are detected and stripped before chunking to reduce embedding noise
+- **TF-IDF Keyword Enrichment:** Top keywords per chunk are extracted using TF-IDF and appended to chunk text at embedding time, improving semantic search accuracy
+- **Separated embedding vs storage:** Enriched text (with keywords) is used for vector generation, while clean text is stored for LLM context — reducing prompt noise
+- **Structured Metadata:** JSONB metadata column stores page number, chunk index, and keywords — extensible without schema migrations
+- **Chunk Traceability:** Each chunk has a structured ID (e.g., doc1_p3_c2) for easy debugging and source tracking
+
 ## Tech Stack
 
 | Layer | Technology | Why |
@@ -64,11 +72,12 @@ CREATE TABLE documents (
     date_uploaded TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE vector_embeddings (
+CREATE TABLE IF NOT EXISTS vector_embeddings (
     id SERIAL PRIMARY KEY,
     document_id INTEGER REFERENCES documents(document_id),
-    page_no INTEGER,
+    chunk_id VARCHAR(50),
     text TEXT NOT NULL,
+    metadata JSONB,
     vector vector(384)
 );
 ```
