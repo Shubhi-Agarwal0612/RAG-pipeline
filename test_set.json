@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "question": "When was PDF version 1.0 released?",
+    "expected_answer": "PDF version 1.0 was released in 1993",
+    "source_page": 7,
+    "category": "easy_factual"
+  },
+  {
+    "id": 2,
+    "question": "What programming language was created by Brendan Eich?",
+    "expected_answer": "JavaScript was created by Brendan Eich in 1995",
+    "source_page": 31,
+    "category": "easy_factual"
+  },
+  {
+    "id": 3,
+    "question": "What is the maximum resolution supported by MP4?",
+    "expected_answer": "MP4 supports 8K+ maximum resolution",
+    "source_page": 35,
+    "category": "easy_factual"
+  },
+  {
+    "id": 4,
+    "question": "What port does PostgreSQL use?",
+    "expected_answer": "PostgreSQL uses port 5432",
+    "source_page": 43,
+    "category": "easy_factual"
+  },
+  {
+    "id": 5,
+    "question": "How has PDF encryption evolved across different versions?",
+    "expected_answer": "Early PDFs used RC4-40, PDF 1.4 introduced RC4-128, PDF 1.6 added AES-128, and PDF 2.0 mandates AES-256",
+    "source_page": 16,
+    "category": "easy_factual"
+  },
+  {
+    "id": 6,
+    "question": "Compare Python and Rust in terms of memory management and error handling",
+    "expected_answer": "Python uses garbage collection and exceptions for error handling, while Rust uses an ownership system for memory and Result type for errors",
+    "source_pages": [32],
+    "category": "cross_page"
+  },
+  {
+    "id": 7,
+    "question": "What are the four main components of a PDF file and how does the trailer help with parsing?",
+    "expected_answer": "The four components are Header, Body, Cross-Reference Table, and Trailer. The trailer appears at the end of the file and contains a dictionary pointing to the root object and the cross-reference table, enabling PDF readers to locate the xref table and begin parsing from the root",
+    "source_page": 13,
+    "category": "multi_part"
+  },
+  {
+    "id": 8,
+    "question": "How do website traffic patterns relate to e-commerce performance across seasons?",
+    "expected_answer": "Website traffic peaks in summer months (July: 62,400 visitors) while e-commerce revenue peaks in Q4 due to holiday surge (Q4 2024: $2,540K). Both show seasonal patterns but with different peak periods",
+    "source_pages": [17, 18],
+    "category": "cross_page"
+  },
+  {
+    "id": 9,
+    "question": "What machine learning frameworks does the document discuss?",
+    "expected_answer": "The document does not discuss machine learning frameworks in detail. It only mentions that Python's key libraries include NumPy, pandas, scikit-learn, TensorFlow, and PyTorch",
+    "source_page": 32,
+    "category": "partial_answer"
+  },
+  {
+    "id": 10,
+    "question": "What was the revenue of Adobe Systems in 2023?",
+    "expected_answer": "The document does not contain information about Adobe's revenue",
+    "source_page": null,
+    "category": "no_answer"
+  },
+  {
+    "id": 11,
+    "question": "How many people work at Sample-Files.com?",
+    "expected_answer": "The document does not contain information about the number of employees at Sample-Files.com",
+    "source_page": null,
+    "category": "no_answer"
+  },
+  {
+    "id": 12,
+    "question": "What is the best programming language?",
+    "expected_answer": "The document does not state which language is best. It says choosing depends on team expertise, ecosystem maturity, hiring availability, deployment constraints, and maintenance considerations",
+    "source_page": 33,
+    "category": "no_answer_opinion"
+  },
+  {
+    "id": 13,
+    "question": "What universal file format did John Warnock envision in his Camelot Project?",
+    "expected_answer": "Warnock envisioned a system that could capture documents from any application, send them electronically, and display or print them on any machine. This vision led to the development of PDF",
+    "source_page": 20,
+    "category": "paraphrased"
+  },
+  {
+    "id": 14,
+    "question": "Which compression method is most commonly used inside PDF files for text content?",
+    "expected_answer": "FlateDecode, which is general-purpose compression based on zlib/deflate, is the most commonly used filter for text and vector content",
+    "source_page": 15,
+    "category": "paraphrased"
+  },
+  {
+    "id": 15,
+    "question": "What technology makes scanned documents searchable?",
+    "expected_answer": "OCR (Optical Character Recognition) converts images of text from scanned documents into machine-readable, searchable, and editable text",
+    "source_pages": [23, 46],
+    "category": "paraphrased"
+  },
+  {
+    "id": 16,
+    "question": "Which API endpoint has the highest requests per minute and which has the slowest average response time?",
+    "expected_answer": "The /api/health endpoint has the highest RPM at 45,000, while /api/upload has the slowest average response time at 340ms",
+    "source_page": 19,
+    "category": "multi_part"
+  },
+  {
+    "id": 17,
+    "question": "What challenges does AI create for PDF document authenticity?",
+    "expected_answer": "Document authentication becomes more complex when AI can generate convincing fake documents. Privacy concerns arise when AI processes sensitive PDF content in cloud environments. And whether AI-extracted content accurately represents the original document's meaning remains an active research area",
+    "source_page": 23,
+    "category": "paraphrased"
+  },
+  {
+    "id": 18,
+    "question": "What is the difference between PDF/A and PDF/X standards?",
+    "expected_answer": "PDF/A (ISO 19005) is designed for long-term preservation of electronic documents, while PDF/X (ISO 15930) is designed for reliable prepress data exchange in the printing and publishing industry",
+    "source_pages": [7, 8, 22],
+    "category": "cross_page"
+  }
+]

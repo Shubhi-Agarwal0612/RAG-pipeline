@@ -133,7 +133,7 @@ def embed_and_store(document_id, final_list):
 # FUNCTION 3: Query
 def query(question, document_ids):
     vector = model.encode(question).tolist()
-
+    chunks = []
     conn = get_db()
     cur = conn.cursor()
     cur.execute(
@@ -149,11 +149,17 @@ def query(question, document_ids):
     conn.close()
 
     if not relevant_chunks:
-        return "I don't have relevant information in the selected documents to answer this question."
+        answer = "I don't have relevant information in the selected documents to answer this question."
+        return answer, chunks
 
     chunks_string = ""
     for i, row in enumerate(relevant_chunks):
+        chunk_dict = {}
+        chunk_dict["chunk_id"] = row[1]
+        chunk_dict["text"] = row[0]
+        chunk_dict["similarity_score"] = row[3]
         chunks_string += f"Source {i + 1} [{row[1]}]: {row[0]}\n\n"
+        chunks.append(chunk_dict)
 
     system_prompt = """You are an exceptional research assistant who answers questions from provided documents.
 Only answer from the provided context, do not add any extra information from training knowledge.
@@ -171,7 +177,8 @@ When using information, reference which source it came from."""
         ],
     )
 
-    return response.choices[0].message.content
+    answer = response.choices[0].message.content
+    return answer, chunks
 
 
 @app.get("/health")

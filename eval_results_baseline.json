@@ -1,0 +1,182 @@
+[
+  {
+    "question": "When was PDF version 1.0 released?",
+    "answer": "PDF version 1.0 was released in 1993, according to Source 1 [doc8_p16_c0] and Source 2 [doc8_p20_c4]. Both sources confirm the release year of PDF version 1.0 as 1993. Source 2 [doc8_p20_c4] also provides additional context, stating that it was released alongside Adobe Acrobat.",
+    "hit": false,
+    "rr": 0,
+    "faith_score": 4,
+    "faith_reason": "The answer correctly states that PDF 1.0 was released in 1993 and alongside Adobe Acrobat, which is supported by the chunks. However, the specific citations to 'Source 1 [doc8_p16_c0]' and 'Source 2 [doc8_p20_c4]' are not present in the provided chunks, making those reference details unsupported.",
+    "corr_score": 5,
+    "corr_reason": "Answer includes the correct fact that PDF version 1.0 was released in 1993 and adds no contradictory information."
+  },
+  {
+    "question": "What programming language was created by Brendan Eich?",
+    "answer": "According to Source 3 [doc8_p31_c1], the programming language created by Brendan Eich is JavaScript, which was created in 1995.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All claims (JavaScript was created by Brendan Eich in 1995) are directly supported by the provided chunks.",
+    "corr_score": 5,
+    "corr_reason": "The answer includes all key facts: JavaScript, created by Brendan Eich, in 1995, with no contradictions or extra incorrect information."
+  },
+  {
+    "question": "What is the maximum resolution supported by MP4?",
+    "answer": "The maximum resolution supported by MP4 is 8K+, as stated in Source 1 [doc8_p35_c1] in Table 10.4: Video formats comparison. The codec used for MP4 is H.264/H.265 and it was developed by ISO/IEC (MPEG).",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All claims about MP4's max resolution (8K+), codec (H.264/H.265), and developer (ISO/IEC MPEG) are directly supported by the provided table in the chunks.",
+    "corr_score": 5,
+    "corr_reason": "Answer includes the key fact that MP4 supports 8K+ maximum resolution and adds no contradictory information."
+  },
+  {
+    "question": "What port does PostgreSQL use?",
+    "answer": "According to Source 4 [doc8_p43_c3], PostgreSQL uses port 5432.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "The answer states PostgreSQL uses port 5432, which is directly supported by the chunk listing '5432 TCP PostgreSQL TLS-wrapped PostgreSQL database'. No unsupported claims are present.",
+    "corr_score": 5,
+    "corr_reason": "The answer includes the exact fact that PostgreSQL uses port 5432, matching the expected answer, with no incorrect additions."
+  },
+  {
+    "question": "How has PDF encryption evolved across different versions?",
+    "answer": "The evolution of PDF encryption across different versions can be summarized as follows:\n\n* Early PDFs used RC4-40 encryption, which is now considered insecure (Source 2).\n* PDF 1.4 introduced RC4-128 encryption (Source 2).\n* PDF 1.6 added AES-128 encryption (Source 1, Source 2, Source 3).\n* PDF 1.7 Ext 3 introduced AES-256 encryption (Source 3).\n* PDF 2.0 mandates AES-256 as the standard encryption algorithm, providing strong protection against brute-force attacks (Source 2, Source 3).\n\nNote that the information about PDF encryption evolution is mainly provided by Source 2 and Source 3, with some additional information from Source 1. The other sources do not contain relevant information about PDF encryption evolution.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All statements about the evolution of PDF encryption (RC4-40, RC4-128, AES-128, AES-256, PDF versions) are directly supported by the provided chunks; no unsupported claims are present.",
+    "corr_score": 4,
+    "corr_reason": "All key points from the expected answer are present and accurate, but the answer adds an extra detail about PDF 1.7 Ext 3 introducing AES-256, which is not mentioned in the expected answer."
+  },
+  {
+    "question": "Compare Python and Rust in terms of memory management and error handling",
+    "answer": "Based on the provided context, we can compare Python and Rust in terms of memory management and error handling as follows:\n\n**Memory Management:**\nAccording to Source 1 [doc8_p32_c0], Python uses a garbage collected memory management system, whereas Rust uses an ownership system. This means that Rust does not rely on garbage collection, which can reduce overhead and improve performance (Source 2 [doc8_p33_c1]). Rust's ownership model is also mentioned in Source 3 [doc8_p32_c4] as a key feature that eliminates entire categories of bugs at compile time.\n\n**Error Handling:**\nSource 1 [doc8_p32_c0] states that Python uses exceptions for error handling, while Rust uses a result type. This suggests that Rust's error handling is more explicit and type-safe, whereas Python's error handling is more flexible but may be more prone to errors.\n\nIn summary, Rust's memory management and error handling mechanisms are designed to provide stronger safety guarantees and better performance, making it a preferred choice for systems programming where safety and performance are critical (Source 2 [doc8_p33_c1] and Source 4 [doc8_p31_c3]). Python, on the other hand, is more suitable for rapid prototyping and data science applications where ease of use and flexibility are more important (Source 2 [doc8_p33_c1]).",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All claims about Python's garbage collection, Rust's ownership system, error handling differences, and suitability for rapid prototyping vs systems programming are directly supported by the provided chunks.",
+    "corr_score": 5,
+    "corr_reason": "The answer includes all key facts: Python uses garbage collection and exceptions, Rust uses ownership system and a Result type. No contradictory information is added."
+  },
+  {
+    "question": "What are the four main components of a PDF file and how does the trailer help with parsing?",
+    "answer": "According to Source 1 [doc8_p13_c0] and Source 5 [doc8_p13_c1], the four main components of a PDF file are:\n1. Header: The first line of a PDF file that identifies the PDF version.\n2. Body: The section that contains the document's objects, which define all content and structure.\n3. (Implicitly mentioned) Cross-reference table (xref table): Although not explicitly mentioned in Source 1, it is mentioned in Source 2 as being pointed to by the trailer.\n4. Trailer: The section at the end of the file.\n\nSource 2 [doc8_p13_c3] explains that the trailer helps with parsing by containing a dictionary that points to the root object (document catalog) and the cross-reference table, enabling PDF readers to locate the xref table and begin parsing the document structure from the root.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 3,
+    "faith_reason": "The answer correctly describes header, body, and trailer as components, which are supported by the chunks. However, it incorrectly lists the cross\u2011reference table as a fourth main component (the chunks only mention it within the trailer description) and invents source labels (Source\u202f1, Source\u202f5, Source\u202f2) that are not present in the provided text.",
+    "corr_score": 5,
+    "corr_reason": "Answer includes all four components (Header, Body, Cross\u2011Reference Table, Trailer) and correctly describes the trailer's location and function as in the expected answer, with no incorrect additions."
+  },
+  {
+    "question": "How do website traffic patterns relate to e-commerce performance across seasons?",
+    "answer": "According to Source 1 [doc8_p18_c2], website traffic data shows a seasonal pattern, peaking in summer months. This suggests that website traffic is higher during the summer season. \n\nIn terms of e-commerce performance, Source 3 [doc8_p18_c0] provides quarterly e-commerce metrics, which show a surge in Q4 (quarter 4) of each year. This is referred to as the \"typical Q4 holiday surge\" in Source 1 [doc8_p18_c2]. The data in Source 3 [doc8_p18_c0] indicates that revenue, orders, and average order value are higher in Q4 compared to other quarters.\n\nSources 2 [doc8_p17_c1] and 4 [doc8_p17_c0] provide monthly website traffic data, which shows a peak in summer months (June, July, and August). This aligns with the seasonal pattern mentioned in Source 1 [doc8_p18_c2].\n\nWhile there is no direct correlation between website traffic patterns and e-commerce performance across seasons in a single source, combining the information from Sources 1, 2, 3, and 4 suggests that:\n\n- Website traffic tends to peak in summer months.\n- E-commerce performance surges in Q4, which includes the winter holiday season.\n- There may be a relationship between the summer peak in website traffic and the subsequent Q4 holiday surge in e-commerce performance, but this is not explicitly stated in the provided context. \n\nI don't have the information to fully answer how these patterns specifically relate to each other across seasons.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All statements in the answer are directly supported by the provided chunks, including the seasonal summer peak in website traffic, the Q4 holiday surge in e-commerce, and the specific quarterly metrics showing higher revenue, orders, and average order value in Q4. No unsupported claims are present.",
+    "corr_score": 3,
+    "corr_reason": "Answer mentions seasonal peaks for traffic and e\u2011commerce but omits the specific figures (July 62,400 visitors, Q4 2024 $2.54\u202fM) required by the expected answer; otherwise it does not contradict facts."
+  },
+  {
+    "question": "What machine learning frameworks does the document discuss?",
+    "answer": "The provided context does not specifically discuss machine learning frameworks. It mentions the use of artificial intelligence (AI) and machine learning (ML) in PDF processing, as well as natural language processing (NLP) models and large language models (LLMs) (Source 1 [doc8_p23_c1], Source 3 [doc8_p23_c2], and Source 4 [doc8_p23_c0]). However, it does not mention specific machine learning frameworks. \n\nSource 5 [doc8_p31_c0] discusses programming languages, including Python, which is often used for machine learning, but it does not explicitly mention machine learning frameworks. \n\nTherefore, I don't have the information to answer this question.",
+    "hit": false,
+    "rr": 0,
+    "faith_score": 4,
+    "faith_reason": "The answer correctly states that the context mentions AI, ML, NLP, LLMs, and Python, which are present in the chunks. However, it cites specific source IDs (e.g., Source 1 [doc8_p23_c1]) that are not referenced in the provided chunks, making those citation claims unsupported.",
+    "corr_score": 1,
+    "corr_reason": "The answer fails to note that the document mentions Python's key libraries (NumPy, pandas, scikit-learn, TensorFlow, PyTorch) and incorrectly claims no information is provided; it misses this key fact."
+  },
+  {
+    "question": "What was the revenue of Adobe Systems in 2023?",
+    "answer": "I don't have the information to answer this question. The provided context does not contain Adobe Systems' revenue for 2023. The closest relevant information is found in Source 5 [doc8_p10_c2], which provides a table with PDF adoption statistics, but it does not include revenue data for Adobe Systems.",
+    "hit": false,
+    "rr": 0,
+    "faith_score": 4,
+    "faith_reason": "The answer correctly notes that revenue data for 2023 is absent and that only PDF adoption statistics are present, which aligns with the chunks. However, it references a non\u2011existent 'Source 5 [doc8_p10_c2]' that is not mentioned in the provided chunks, an unsupported detail.",
+    "corr_score": 5,
+    "corr_reason": "The answer correctly states that the document lacks Adobe's revenue information, matching the expected answer, with no contradictory or extra facts."
+  },
+  {
+    "question": "How many people work at Sample-Files.com?",
+    "answer": "I don't have the information to answer this. None of the provided sources mention the number of people working at Sample-Files.com.",
+    "hit": false,
+    "rr": 0,
+    "faith_score": 5,
+    "faith_reason": "All statements in the answer are accurate: the chunks contain no information about employee count, so noting the lack of such info is fully supported.",
+    "corr_score": 5,
+    "corr_reason": "The answer states that no information about the number of employees at Sample-Files.com is provided, matching the expected answer without adding any contradictory facts."
+  },
+  {
+    "question": "What is the best programming language?",
+    "answer": "The context does not provide a definitive answer to the question \"What is the best programming language?\" as it depends on various factors such as the project's requirements, team expertise, and ecosystem maturity (Source 3 [doc8_p33_c0]). \n\nHowever, according to Source 1 [doc8_p31_c3] and Source 4 [doc8_p31_c2], Python has risen to become the most popular language overall, driven by its dominance in machine learning, data science, and AI development. \n\nSource 3 [doc8_p33_c0] provides relative performance benchmarks, but it does not necessarily imply that the language with the best performance is the \"best\" language. \n\nUltimately, the choice of the best programming language depends on the specific needs and goals of the project, and the context suggests that different languages are suited for different tasks, such as JavaScript for web development, Rust for systems programming, and Python for machine learning and data science.",
+    "hit": true,
+    "rr": 0.3333333333333333,
+    "faith_score": 5,
+    "faith_reason": "All claims in the answer are directly supported by the provided chunks, including statements about Python's popularity, factors influencing language choice, performance benchmarks, and suitability of JavaScript, Rust, and Python for specific domains.",
+    "corr_score": 2,
+    "corr_reason": "Missing several listed factors (hiring availability, deployment constraints, maintenance considerations) and adds unrelated claims about Python popularity and performance not present in the expected answer."
+  },
+  {
+    "question": "What universal file format did John Warnock envision in his Camelot Project?",
+    "answer": "According to Source 1 [doc8_p20_c4], John Warnock envisioned a universal document format in his Camelot Project, which led to the development of PDF (Portable Document Format). This format was designed to capture documents from any application, send them electronically, and display or print them on any machine. Therefore, the universal file format John Warnock envisioned in his Camelot Project is PDF.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All statements in the answer are directly supported by the provided chunks, including Warnock's Camelot Project vision, its goals, and its direct link to the creation of PDF.",
+    "corr_score": 5,
+    "corr_reason": "Answer includes all key facts: Warnock's vision to capture documents from any application, send electronically, display/print on any machine, leading to PDF development. No incorrect additions."
+  },
+  {
+    "question": "Which compression method is most commonly used inside PDF files for text content?",
+    "answer": "According to Source 1 [doc8_p15_c3] and Source 4 [doc8_p15_c2], the most commonly used compression method inside PDF files for text content is FlateDecode, which is a general-purpose compression based on zlib/deflate. Both sources agree that FlateDecode is the most commonly used filter for text content.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All factual claims (FlateDecode being the most common filter for text, its basis on zlib/deflate) are directly supported by the provided chunks; no unsupported information is introduced.",
+    "corr_score": 4,
+    "corr_reason": "The answer correctly states FlateDecode is the most common filter for text and its basis (zlib/deflate), but omits the expected fact that it is also the most commonly used filter for vector content."
+  },
+  {
+    "question": "What technology makes scanned documents searchable?",
+    "answer": "The technology that makes scanned documents searchable is Optical Character Recognition (OCR), as stated in Source 1 [doc8_p46_c1] and Source 2 [doc8_p23_c1], and also mentioned in Source 3 [doc8_p23_c2]. OCR converts images of text from scanned documents into machine-readable, searchable, and editable text.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 4,
+    "faith_reason": "The answer correctly states that OCR converts images of text into machine\u2011readable, searchable, editable text, which is supported by the chunks. However, the references to specific sources (Source 1, Source 2, Source 3) are not found in the provided chunks, so those citation claims are unsupported.",
+    "corr_score": 5,
+    "corr_reason": "Answer includes all key facts: OCR converts images of text from scanned documents into machine\u2011readable, searchable, editable text, matching the expected answer, with no incorrect additions."
+  },
+  {
+    "question": "Which API endpoint has the highest requests per minute and which has the slowest average response time?",
+    "answer": "To answer this question, I will refer to Source 1 [doc8_p19_c0] and Source 2 [doc8_p19_c1], as they both provide information about API endpoint performance metrics.\n\nThe API endpoint with the highest requests per minute (RPM) is /api/health with 45,000 RPM, as shown in both Source 1 and Source 2.\n\nThe API endpoint with the slowest average response time is /api/upload with an average response time of 340 ms, as shown in Source 1. \n\nI couldn't find any conflicting information in the provided context regarding these two questions.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 4,
+    "faith_reason": "The answer correctly identifies /api/health as the highest RPM and /api/upload as the slowest average response time, which are supported by the chunks. However, the mention of \"Source 1 [doc8_p19_c0]\" and \"Source 2 [doc8_p19_c1]\" is not present in the provided chunks, making that citation an unsupported claim.",
+    "corr_score": 5,
+    "corr_reason": "The answer includes both key facts: /api/health has the highest RPM of 45,000 and /api/upload has the slowest average response time of 340\u202fms, with no contradictory or extra incorrect information."
+  },
+  {
+    "question": "What challenges does AI create for PDF document authenticity?",
+    "answer": "According to Source 1 [doc8_p23_c3], AI creates challenges for PDF document authenticity by allowing the generation of \"convincing fake documents\". This complexity in document authentication is further emphasized in Source 2 [doc8_p24_c3], which notes that in an era of deepfakes and AI-generated content, document authenticity has become a critical concern. \n\nThere is no conflicting information in the provided context regarding this question. The information from other sources (Source 3, Source 4, and Source 5) does not directly address the challenges AI creates for PDF document authenticity.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All claims in the answer are directly supported by the provided chunks, including AI generating convincing fake documents and the critical concern of document authenticity in the era of deepfakes. No unsupported statements were found.",
+    "corr_score": 2,
+    "corr_reason": "The answer only covers the document authentication complexity point, omitting the privacy concerns about AI processing PDFs in the cloud and the active research question of whether AI-extracted content accurately reflects the original meaning."
+  },
+  {
+    "question": "What is the difference between PDF/A and PDF/X standards?",
+    "answer": "The difference between PDF/A and PDF/X standards can be answered based on the information provided in Source 1 [doc8_p22_c1] and Source 4 [doc8_p8_c1]. \n\nAccording to Source 1 [doc8_p22_c1], PDF/A (ISO 19005) is a standard for long-term document preservation, while PDF/X (ISO 15930) is a standard that addresses the printing industry's needs, ensuring predictable print output through strict requirements on color spaces, fonts, and transparency.\n\nSource 4 [doc8_p8_c1] further explains that PDF/A is an ISO-standardized subset of PDF designed specifically for the long-term preservation of electronic documents.\n\nIn summary, the main difference between PDF/A and PDF/X is their purpose: PDF/A is for archiving and long-term preservation, while PDF/X is for printing and ensuring predictable print output.",
+    "hit": true,
+    "rr": 1.0,
+    "faith_score": 5,
+    "faith_reason": "All statements about PDF/A being for long-term preservation and PDF/X being for printing with strict color/font/ transparency requirements are directly supported by the provided chunks; no extra or unsupported claims are made.",
+    "corr_score": 5,
+    "corr_reason": "The answer includes both key facts: PDF/A is for long\u2011term preservation (ISO 19005) and PDF/X is for reliable printing/prepress (ISO 15930). No contradictory or missing information."
+  }
+]
