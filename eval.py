@@ -2,7 +2,8 @@ import json
 import os
 from groq import Groq
 from main import query  # reuse the app's query function
-
+import time
+OUTPUT_FILE = "eval_results_baseline.json"
 # ─────────────────────────────────────────────────────────────
 # Judge prompts
 # ─────────────────────────────────────────────────────────────
@@ -139,6 +140,7 @@ for item in test_set:
     }
     results.append(result)
     print(f"Done: {question[:60]}...")
+    time.sleep(15)
 
 # ─────────────────────────────────────────────────────────────
 # Aggregate into the four headline metrics
@@ -175,5 +177,5 @@ print(f"Faithfulness:  {avg_faithfulness:.3f}")
 print(f"Correctness:   {avg_correctness:.3f}")
 
 # save full results for later comparison against the reranked run
-with open("eval_results_baseline.json", "w") as f:
+with open(OUTPUT_FILE , "w") as f:
     json.dump(results, f, indent=2)

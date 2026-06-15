@@ -131,6 +131,11 @@ def embed_and_store(document_id, final_list):
 
 
 # FUNCTION 3: Query
+# ── At the top of the file, with your other model load ──
+from sentence_transformers import CrossEncoder
+reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+
 def query(question, document_ids):
     vector = model.encode(question).tolist()
     chunks = []
@@ -141,7 +146,7 @@ def query(question, document_ids):
            FROM vector_embeddings
            WHERE document_id = ANY(%s)
            ORDER BY similarity DESC
-           LIMIT 5""",
+           LIMIT 20""",
         (vector, document_ids),
     )
     relevant_chunks = cur.fetchall()
@@ -152,14 +157,28 @@ def query(question, document_ids):
         answer = "I don't have relevant information in the selected documents to answer this question."
         return answer, chunks
 
-    chunks_string = ""
-    for i, row in enumerate(relevant_chunks):
+    # Build the candidate chunk dicts from the 20 retrieved rows
+    for row in relevant_chunks:
         chunk_dict = {}
         chunk_dict["chunk_id"] = row[1]
         chunk_dict["text"] = row[0]
         chunk_dict["similarity_score"] = row[3]
-        chunks_string += f"Source {i + 1} [{row[1]}]: {row[0]}\n\n"
         chunks.append(chunk_dict)
+
+    # ── Rerank: score each (question, chunk) pair, keep the best 5 ──
+    pairs = [[question, chunk["text"]] for chunk in chunks]
+    scores = reranker.predict(pairs)
+    final_list = list(zip(chunks, scores))
+    final_list.sort(key=lambda x: x[1], reverse=True)
+    top_5_pairs = final_list[:5]
+    final_chunks = []
+    for i in top_5_pairs:
+        final_chunks.append(i[0])          # i[0] = chunk dict, i[1] = score
+
+    # Build the sources string from the reranked top 5
+    chunks_string = ""
+    for i, row in enumerate(final_chunks):
+        chunks_string += f"Source {i + 1} [{row['chunk_id']}]: {row['text']}\n\n"
 
     system_prompt = """You are an exceptional research assistant who answers questions from provided documents.
 Only answer from the provided context, do not add any extra information from training knowledge.
@@ -178,7 +197,7 @@ When using information, reference which source it came from."""
     )
 
     answer = response.choices[0].message.content
-    return answer, chunks
+    return answer, final_chunks
 
 
 @app.get("/health")
