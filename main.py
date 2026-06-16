@@ -128,9 +128,32 @@ def embed_and_store(document_id, final_list):
     conn.commit()
     cur.close()
     conn.close()
+    
+#Function 3 :  used to convert a follow-up question into a standalone question, by providing the conversation history as context to the model. This is important for accurate retrieval and evaluation, as it ensures the question is fully self-contained and can be understood without any external reference. 
+rewrite_system_prompt = """You rewrite the user's most recent question into a fully standalone question, using the earlier conversation only when needed.
+
+Only rewrite if the latest question literally cannot be understood on its own — for example it uses pronouns like "it", "its", or "they" that refer to something in the earlier conversation, or starts with words like "and" or "but", or is otherwise incomplete. In that case, use the earlier conversation to rewrite it into a complete, self-contained question.
+
+If the latest question already makes sense on its own, or introduces a new topic — even one unrelated to the earlier conversation — return it completely unchanged, word for word. Do not try to connect an unrelated question to the earlier conversation.
+
+Never answer the question. Your output must always itself be a question — only the rewritten (or unchanged) question, with no preamble, explanation, or answer."""
 
 
-# FUNCTION 3: Query
+def rewrite(convo_history, question):
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "system", "content": rewrite_system_prompt},
+            *convo_history,
+            {"role": "user", "content": question},
+        ],
+    )
+    standalone_question = response.choices[0].message.content
+    return standalone_question
+
+
+# FUNCTION 4: Query
 # ── At the top of the file, with your other model load ──
 from sentence_transformers import CrossEncoder
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
