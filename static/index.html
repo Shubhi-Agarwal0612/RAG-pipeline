@@ -9,8 +9,8 @@
 
         body {
             font-family: 'Segoe UI', -apple-system, sans-serif;
-            background: #0f1117;
-            color: #e1e4e8;
+            background: #f7f8fa;
+            color: #1f2330;
             height: 100vh;
             display: flex;
         }
@@ -18,8 +18,8 @@
         /* ---- SIDEBAR ---- */
         .sidebar {
             width: 300px;
-            background: #161822;
-            border-right: 1px solid #2a2d3a;
+            background: #ffffff;
+            border-right: 1px solid #e2e5ea;
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
@@ -27,13 +27,13 @@
 
         .sidebar-header {
             padding: 20px;
-            border-bottom: 1px solid #2a2d3a;
+            border-bottom: 1px solid #e2e5ea;
         }
 
         .sidebar-header h1 {
             font-size: 18px;
             font-weight: 600;
-            color: #f0f0f0;
+            color: #1f2330;
             letter-spacing: -0.3px;
         }
 
@@ -46,11 +46,11 @@
         /* Upload area */
         .upload-area {
             padding: 16px 20px;
-            border-bottom: 1px solid #2a2d3a;
+            border-bottom: 1px solid #e2e5ea;
         }
 
         .upload-dropzone {
-            border: 2px dashed #2a2d3a;
+            border: 2px dashed #cbd0d8;
             border-radius: 10px;
             padding: 24px 16px;
             text-align: center;
@@ -60,12 +60,12 @@
 
         .upload-dropzone:hover {
             border-color: #4f8ff7;
-            background: rgba(79, 143, 247, 0.05);
+            background: rgba(79, 143, 247, 0.06);
         }
 
         .upload-dropzone.dragover {
             border-color: #4f8ff7;
-            background: rgba(79, 143, 247, 0.1);
+            background: rgba(79, 143, 247, 0.12);
         }
 
         .upload-icon {
@@ -112,7 +112,7 @@
             transition: background 0.15s;
         }
 
-        .doc-item:hover { background: #1e2030; }
+        .doc-item:hover { background: #eef0f4; }
 
         .doc-checkbox {
             margin-top: 3px;
@@ -130,7 +130,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: #e1e4e8;
+            color: #1f2330;
         }
 
         .doc-meta {
@@ -154,10 +154,10 @@
             letter-spacing: 0.3px;
         }
 
-        .status-uploaded { background: #2a2d3a; color: #9ca3af; }
-        .status-processing { background: #1e3a5f; color: #60a5fa; animation: pulse 1.5s infinite; }
-        .status-ready { background: #14332a; color: #34d399; }
-        .status-failed { background: #3b1c1c; color: #f87171; }
+        .status-uploaded { background: #eceef2; color: #6b7280; }
+        .status-processing { background: #dbeafe; color: #2563eb; animation: pulse 1.5s infinite; }
+        .status-ready { background: #d1fae5; color: #059669; }
+        .status-failed { background: #fee2e2; color: #dc2626; }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
@@ -165,9 +165,9 @@
             font-size: 11px;
             padding: 3px 10px;
             border-radius: 6px;
-            border: 1px solid #2a2d3a;
-            background: #1e2030;
-            color: #e1e4e8;
+            border: 1px solid #d0d4dc;
+            background: #f7f8fa;
+            color: #1f2330;
             cursor: pointer;
             transition: all 0.15s;
         }
@@ -183,12 +183,12 @@
 
         .chat-header {
             padding: 16px 24px;
-            border-bottom: 1px solid #2a2d3a;
+            border-bottom: 1px solid #e2e5ea;
             font-size: 13px;
             color: #6b7280;
         }
 
-        .chat-header strong { color: #e1e4e8; }
+        .chat-header strong { color: #1f2330; }
 
         .messages {
             flex: 1;
@@ -207,16 +207,17 @@
 
         .message.user {
             align-self: flex-end;
-            background: #1e3a5f;
-            color: #e1e4e8;
+            background: #4f8ff7;
+            color: #ffffff;
             padding: 12px 18px;
             border-radius: 16px 16px 4px 16px;
         }
 
         .message.assistant {
             align-self: flex-start;
-            background: #1e2030;
-            color: #d1d5db;
+            background: #ffffff;
+            color: #1f2330;
+            border: 1px solid #e2e5ea;
             padding: 16px 20px;
             border-radius: 16px 16px 16px 4px;
             white-space: pre-wrap;
@@ -235,35 +236,35 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #3b3f51;
+            color: #9ca3af;
         }
 
         .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
-        .empty-state h2 { font-size: 18px; font-weight: 500; margin-bottom: 6px; color: #4b5068; }
+        .empty-state h2 { font-size: 18px; font-weight: 500; margin-bottom: 6px; color: #6b7280; }
         .empty-state p { font-size: 13px; }
 
         /* Input bar */
         .input-bar {
             padding: 16px 24px;
-            border-top: 1px solid #2a2d3a;
+            border-top: 1px solid #e2e5ea;
             display: flex;
             gap: 10px;
         }
 
         .input-bar input {
             flex: 1;
-            background: #1e2030;
-            border: 1px solid #2a2d3a;
+            background: #ffffff;
+            border: 1px solid #d0d4dc;
             border-radius: 10px;
             padding: 12px 16px;
-            color: #e1e4e8;
+            color: #1f2330;
             font-size: 14px;
             outline: none;
             transition: border-color 0.15s;
         }
 
         .input-bar input:focus { border-color: #4f8ff7; }
-        .input-bar input::placeholder { color: #4b5068; }
+        .input-bar input::placeholder { color: #9ca3af; }
 
         .send-btn {
             background: #4f8ff7;
@@ -278,7 +279,7 @@
         }
 
         .send-btn:hover { background: #3b7de6; }
-        .send-btn:disabled { background: #2a2d3a; color: #4b5068; cursor: not-allowed; }
+        .send-btn:disabled { background: #d0d4dc; color: #9ca3af; cursor: not-allowed; }
 
         /* Toast */
         .toast-container {
@@ -296,12 +297,13 @@
             border-radius: 10px;
             font-size: 13px;
             font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             animation: slide-in 0.3s ease;
         }
 
-        .toast.success { background: #14332a; color: #34d399; border: 1px solid #1a4a3a; }
-        .toast.error { background: #3b1c1c; color: #f87171; border: 1px solid #5a2a2a; }
-        .toast.info { background: #1e3a5f; color: #60a5fa; border: 1px solid #2a4a6f; }
+        .toast.success { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0; }
+        .toast.error { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+        .toast.info { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe; }
 
         @keyframes slide-in {
             from { transform: translateX(100px); opacity: 0; }
@@ -311,7 +313,7 @@
         /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #2a2d3a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #cbd0d8; border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -361,6 +363,7 @@
     <script>
         const API = "http://localhost:8000";
         let selectedDocIds = new Set();
+        let conversationHistory = [];   // holds the conversation so far (browser-side)
 
         // ---- TOAST NOTIFICATIONS ----
         function showToast(message, type = "info") {
@@ -419,6 +422,7 @@
         function toggleDoc(id, checked) {
             if (checked) selectedDocIds.add(id);
             else selectedDocIds.delete(id);
+            conversationHistory = [];   // changing documents starts a fresh conversation
             updateChatHeader();
         }
 
@@ -539,7 +543,8 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         question: question,
-                        document_ids: Array.from(selectedDocIds)
+                        document_ids: Array.from(selectedDocIds),
+                        history: conversationHistory          // send conversation so far
                     })
                 });
 
@@ -550,6 +555,11 @@
 
                 const data = await res.json();
                 updateMessage(thinkingId, data.answer);
+
+                // Save this turn to history, then trim to last 10 messages (sliding window)
+                conversationHistory.push({ role: "user", content: question });
+                conversationHistory.push({ role: "assistant", content: data.answer });
+                conversationHistory = conversationHistory.slice(-10);
             } catch (e) {
                 updateMessage(thinkingId, `Error: ${e.message}`);
             }

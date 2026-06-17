@@ -327,6 +327,7 @@ def get_documents():
 class QueryRequest(BaseModel):
     question: str
     document_ids: list[int]
+    history: list[dict] = []        # NEW: browser sends conversation so far (defaults to empty)
 
 
 @app.post("/query")
@@ -334,11 +335,17 @@ def query_documents(request: QueryRequest):
     if not request.document_ids:
         raise HTTPException(status_code=400, detail="Select at least one document")
 
-    answer = query(request.question, request.document_ids)
-    return {"answer": answer, "question": request.question}
+    # Rewrite the follow-up into a standalone question using history
+    standalone_question = rewrite(request.history, request.question)
 
+    # query() returns (answer, chunks) — unpack both
+    answer, chunks = query(standalone_question, request.document_ids)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+    return {
+        "answer": answer,
+        "question": request.question,
+        "standalone_question": standalone_question,   # so you can SEE the rewrite in the demo
+    }
 
 
 @app.get("/")
