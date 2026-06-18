@@ -58,17 +58,22 @@ def process_document(file_path):
     pdf.close()
 
     # PHASE 2: Detect and remove headers, footers, page numbers
-    all_lines = []
-    for page in raw_pages:
-        lines = page["text"].split('\n')
-        all_lines.extend(set(lines))
+    # Header/footer detection only makes sense with enough pages — on a 1–2 page
+    # document the "appears on >50% of pages" rule would flag every line and
+    # strip the entire document. So only run detection when there are >= 3 pages.
+    headers_footers = set()
+    if len(raw_pages) >= 3:
+        all_lines = []
+        for page in raw_pages:
+            lines = page["text"].split('\n')
+            all_lines.extend(set(lines))
 
-    line_counts = Counter(all_lines)
-    threshold = len(raw_pages) * 0.5
-    headers_footers = {
-        line for line, count in line_counts.items()
-        if count > threshold and len(line.strip()) > 0
-    }
+        line_counts = Counter(all_lines)
+        threshold = len(raw_pages) * 0.5
+        headers_footers = {
+            line for line, count in line_counts.items()
+            if count > threshold and len(line.strip()) > 0
+        }
 
     for page in raw_pages:
         lines = page["text"].split('\n')
@@ -197,6 +202,10 @@ def query(question, document_ids):
     final_chunks = []
     for i in top_5_pairs:
         final_chunks.append(i[0])          # i[0] = chunk dict, i[1] = score
+    final_chunks.sort(key=lambda c: (
+        int(c["chunk_id"].split('_')[1][1:]),
+        int(c["chunk_id"].split('_')[2][1:])
+    ))
 
     # Build the sources string from the reranked top 5
     chunks_string = ""
@@ -204,11 +213,16 @@ def query(question, document_ids):
         chunks_string += f"Source {i + 1} [{row['chunk_id']}]: {row['text']}\n\n"
 
     system_prompt = """You are an exceptional research assistant who answers questions from provided documents.
-Only answer from the provided context, do not add any extra information from training knowledge.
-In case there is conflicting information, acknowledge the conflict and provide both sides, do not pick a side.
-If the provided context does not contain enough information, say 'I don't have the information to answer this.'
-If the context is only partially relevant, answer what you can and state what you cannot answer.
-When using information, reference which source it came from."""
+    Only answer from the provided context, do not add any extra information from training knowledge.
+    In case there is conflicting information, acknowledge the conflict and provide both sides, do not pick a side.
+    If the provided context does not contain enough information, say 'I don't have the information to answer this.'
+    If the context is only partially relevant, answer what you can and state what you cannot answer.
+
+    Format your response in two parts:
+    1. First, write the complete answer in clear prose, WITHOUT any inline source tags or citations in the body.
+    2. Then, after the answer, add a line break and a "Sources:" section listing the source labels you used (e.g. Sources: [doc9_p3_c1], [doc9_p1_c0]).
+
+    Do not put citation tags inside the answer text itself — keep the answer clean and readable, with all sources grouped at the end."""
 
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     response = client.chat.completions.create(
